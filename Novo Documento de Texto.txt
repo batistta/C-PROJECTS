@@ -1,0 +1,31 @@
+class Program
+    {
+        static void Main(string[] args)
+        {
+            int soma = 17;
+            int comparar = 10;
+            for (int i = 0; i < comparar; i++)
+            {
+                soma += i;
+            }
+        }// soma  = 17 + 0 + 1 + 2... 9 = 62
+    }
+
+bne , beq  
+
+    		Em assembly no mips:
+
+.text
+.globl main
+main:
+	li $t0, 10 # comparar == 10
+	li $t1, 0 # i == 0
+	li $t2, 17 # soma == 17
+for:
+	beq $t1, $t0, FIM # Se t1 == 10 pula pro FIM
+	add $t2, $t2, $t1 == soma = soma + i
+	addi $t1, $t1, 1 # i++
+	j for # pula pro inicio do for 
+FIM: 
+	j SRA
+	
