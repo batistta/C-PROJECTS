@@ -1,0 +1,69 @@
+class Celula
+        {
+            public Celula prox { get; set; }
+            public char dado { get; set; }
+        }
+        class Pilha_Dinamica
+        {
+            private Celula topo;
+            private int tamanho;
+            public Pilha_Dinamica()
+            {
+                topo = null;
+                tamanho = 0;
+            }
+            public void Empilhar(char dado)
+            {
+                Celula temp = new Celula();
+                temp.dado = dado;
+                temp.prox = topo;
+                topo = temp;
+                tamanho++;
+            }
+            public char Desempilhar()
+            {
+                if (Vazia())
+                {
+                    Console.WriteLine("Pilha vazia!!");
+                    return ' ';
+                }
+                char dado = topo.dado;
+                topo = topo.prox;
+                tamanho--;
+                return dado;
+            }
+            public int Tamanho()
+            {
+                return tamanho;
+            }
+            public bool Vazia()
+            {
+                return topo == null;
+            }
+            public void Imprimir()
+            {
+                Celula temp = topo;
+                while (temp != null)
+                {
+                    Console.WriteLine(temp.dado);
+                    temp = temp.prox;
+                }
+            }
+            public Pilha_Dinamica Clonar()
+            {
+                Pilha_Dinamica p1 = new Pilha_Dinamica(), p2 = new Pilha_Dinamica();
+                Celula temp = topo;
+                while (temp != null)
+                {
+                    p1.Empilhar(temp.dado);
+                    temp = temp.prox;
+                }
+                temp = p1.topo;
+                while (temp != null)
+                {
+                    p2.Empilhar(temp.dado);
+                    temp = temp.prox;
+                }
+                return p2;
+            }
+        }
