@@ -1,0 +1,131 @@
+class Celula
+        {
+            public Celula prox { get; set; }
+            public int dado { get; set; }
+        }
+        class Fila
+        {
+            private Celula Primeiro;
+            private Celula Ultimo;
+            private int tam;
+            public Fila()
+            {
+                Primeiro = new Celula();
+                Ultimo = Primeiro;
+                tam = 0;
+                Primeiro.prox = null;
+            }
+            public void Enfileirar(int dado)
+            {
+                Celula temp = new Celula();
+                temp.dado = dado;
+                temp.prox = null;
+                Ultimo.prox = temp;
+                Ultimo = temp;
+                tam++;
+            }
+            public int Desenfileirar()
+            {
+                if (Vazia())
+                    return -1;
+                Primeiro = Primeiro.prox;
+                tam--;
+                return Primeiro.dado;
+            }
+            public bool Vazia()
+            {
+                return Primeiro == Ultimo;
+            }
+            public int Tamanho()
+            {
+                return tam;
+            }
+            public void Imprimir()
+            {
+                Celula temp = Primeiro.prox;
+                while (temp != null)
+                {
+                    Console.WriteLine(temp.dado);
+                    temp = temp.prox;
+                }
+            }
+            public Fila Clonar()
+            {
+                Fila f_clone = new Fila();
+                Celula temp = Primeiro.prox;
+                while (temp != null)
+                {
+                    f_clone.Enfileirar(temp.dado);
+                    temp = temp.prox;
+                }
+                return f_clone;
+            }
+            public Fila Concatenar(Fila f1, Fila f2)
+            {
+                Fila f3 = new Fila();
+                Celula temp = f1.Primeiro.prox;
+                while (temp != null)
+                {
+                    f3.Enfileirar(temp.dado);
+                    temp = temp.prox;
+                }
+                temp = f2.Primeiro.prox;
+                while (temp != null)
+                {
+                    f3.Enfileirar(temp.dado);
+                    temp = temp.prox;
+                }
+                return f3;
+            }
+            public Fila Inverter()
+            {
+                Pilha_Dinamica pilha = new Pilha_Dinamica();
+                Celula temp = Primeiro.prox;
+                Fila f_invertida = new Fila();
+                while (temp != null)
+                {
+                    pilha.Empilhar(temp.dado);
+                    temp = temp.prox;
+                }
+                while (!pilha.Vazia())
+                {
+                    f_invertida.Enfileirar(pilha.Desempilhar());
+                }
+                return f_invertida;
+            }
+        }
+        
+        class Pilha_Dinamica
+        {
+            private Celula topo;
+            private int tamanho;
+            public Pilha_Dinamica()
+            {
+                topo = null;
+                tamanho = 0;
+            }
+            public void Empilhar(int dado)
+            {
+                Celula temp = new Celula();
+                temp.dado = dado;
+                temp.prox = topo;
+                topo = temp;
+                tamanho++;
+            }
+            public int Desempilhar()
+            {
+                if (Vazia())
+                {
+                    Console.WriteLine("Pilha vazia!!");
+                    return ' ';
+                }
+                int dado = topo.dado;
+                topo = topo.prox;
+                tamanho--;
+                return dado;
+            }
+            public bool Vazia()
+            {
+                return topo == null;
+            }
+        }
